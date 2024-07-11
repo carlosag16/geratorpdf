@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Criação Automática de PDF</title>
+</head>
+
+<body>
+	<h1>Gerador de PDF</h1>
+	<input type="text" id="nameInput" placeholder="Nome">
+	<br>
+	<br>
+	<input type="text" id="nacInput" placeholder="Nacionalidade">.
+	<br><br>
+
+	<button id="generatePDF">Gerar PDF</button>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>
+<script>
+	document.getElementById('generatePDF').addEventListener('click', function () {
+		// Carregar o módulo jsPDF
+		const { jsPDF } = window.jspdf;
+
+		// Criar uma nova instância do jsPDF
+		const doc = new jsPDF({
+			unit: 'cm',
+			format: 'letter'
+		}
+
+		);
+
+		// Adicionar conteúdo ao PDF
+		var input = document.querySelector("#nameInput");
+		var name = input.value;
+		// Nacionalidade
+		var inputNac = document.querySelector("#nacInput");
+		var nacionalidade = inputNac.value;
+		var y = 10;
+		// var multiplier = parseInt(prompt("Qual o CPF do cliente:"), 10);
+
+		// Define a largura máxima da linha
+
+		doc.text("Hello world!", 10, 10);
+		doc.text("Este é um exemplo de geração automática de PDF.", 10, 20);
+		doc.text("Você pode adicionar mais conteúdo aqui.", 10, 30);
+
+		doc.setFontSize(22);
+		doc.text(20, 40, "Exemplos de arquivos");
+		doc.setFontSize(16);
+		doc.setLineWidth(3);
+		doc.text("Esse arquivo pertence : " + name + " de nacionalidade " + nacionalidade + "wjhvoweigvmnewrkofvjweriojvoiwefviowejfioewjmvklwevjweoivjhweonvwoein", 20, y = y + 40);
+		// doc.text(20, 60, "o CPF desse cliente é: " + multiplier);
+		// Salvar o PDF com o nome especificado
+		doc.save('documento-exemplo.pdf');
+	});
+
+</script>

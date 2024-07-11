@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Criação Automática de PDF</title>
+</head>
+
+<body>
+	<h1>Gerador de PDF</h1>
+	<input type="text" id="nameInput" placeholder="Nome">
+	<br>
+	<br>
+	<input type="text" id="nacInput" placeholder="Nacionalidade">.
+	<br><br>
+	<iframe id="pdf-frame" width="50%" height="500"></iframe>
+	<button id="generatePDF">Gerar PDF</button>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="script.js"></script>
+</body>
+
+</html>
+<script>
+	document.getElementById('generatePDF').addEventListener('click', function () {
+		const { jsPDF } = window.jspdf;
+
+		var doc = new jsPDF();
+		var text = "This is a very long text that needs to be wrapped to the next line automatically";
+		var fontSize = 12;
+		var font = 'helvetica';
+		var lineHeight = 1.2;
+		var startX = 10;
+		var startY = 10;
+		var maxWidth = 200; // adjust this value to set the maximum width of the text
+
+		doc.setFont(font, 'normal');
+		doc.setFontSize(fontSize);
+
+		var splitText = doc.splitTextToSize(text, maxWidth);
+		for (var i = 0; i < splitText.length; i++) {
+			doc.text(startX, startY, splitText[i]);
+			startY += fontSize * lineHeight;
+		}
+
+		var pdfDataUri = doc.output(datauristring);
+		var pdfFrame = document.getElementById('pdf-frame');
+		pdfFrame.src = pdfDataUri;
+
+		doc.save('documento-exemplo.pdf');
+	});
+
+</script>
