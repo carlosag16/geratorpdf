@@ -9,11 +9,12 @@
 
 <body>
 	<h1>Gerador de PDF</h1>
-	<input type="text" id="nameInput" placeholder="Nome COMPLETO">
+	<input type="text" id="nameInput" placeholder="Nome COMPLETO" required>
 	<br>
 	<br>
-	<input type="text" id="nacInput" placeholder="Nacionalidade">.
+	<input type="text" id="cpfInput" placeholder="cpf ou cnpj">.
 	<br><br>
+	<input type="number" id="phoneInput" placeholder="cpf ou cnpj">.
 
 	<button id="generatePDF">Gerar PDF</button>
 
@@ -32,21 +33,29 @@
 		}
 
 		);
+		// variaveis
+		var maxWidth = 180; // adjust this value to your desired width
 
 		// Adicionar conteúdo ao PDF
 		var input = document.querySelector("#nameInput");
 		var name = input.value;
-		// Nacionalidade
-		var inputNac = document.querySelector("#nacInput");
-		var nacionalidade = inputNac.value;
-		var y = 10;
-		// var multiplier = parseInt(prompt("Qual o CPF do cliente:"), 10);
+		// DOCUMENTO
+		var inputCPF = document.querySelector("#cpfInput");
+		var CPF = inputCPF.value;
+		//telefone
+		var inputPhone = document.querySelector("#phoneInput");
+		var telefone = inputPhone.value;
 
-		var text = "This is a very long text that should wrap to the next line automatically " + name;
-		var maxWidth = 180; // adjust this value to your desired width
+		// Texto do contrato
+		var titulo = "Contrato de Prestação de serviço";
+		var text = "Nome: " + name + " CPF/CNPJ: " + CPF;
 
+
+
+		doc.setFontSize(22);
+		doc.text(10, 10, titulo)
 		var splitText = doc.splitTextToSize(text, maxWidth);
-		doc.text(10, 10, splitText);
+		doc.text(10, 20, splitText);
 		// Salvar o PDF com o nome especificado
 		doc.save('documento-exemplo.pdf');
 	});
