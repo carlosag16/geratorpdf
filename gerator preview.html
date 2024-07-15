@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>PDF Preview and Download</title>
+</head>
+
+<body>
+	<h1>PDF Preview and Download</h1>
+	<div id="pdf-preview"></div>
+	<button id="download-button">Download PDF</button>
+
+
+</body>
+
+</html>
+
+<script>
+	var doc = new jsPDF();
+
+	// ... add content to the PDF ...
+
+	var pdfDataUri = doc.output('datauristring');
+	var pdfPreview = document.getElementById('pdf-preview');
+
+	// Create an iframe to display the PDF preview
+	var iframe = document.createElement('iframe');
+	iframe.src = pdfDataUri;
+	iframe.width = '100%';
+	iframe.height = '500px'; // adjust the height to your liking
+
+	pdfPreview.appendChild(iframe);
+
+	var downloadButton = document.getElementById('download-button');
+
+	downloadButton.addEventListener('click', function () {
+		var pdfBlob = doc.output('blob');
+		var url = URL.createObjectURL(pdfBlob);
+		var a = document.createElement('a');
+		a.href = url;
+		a.download = 'example.pdf';
+		a.click();
+		URL.revokeObjectURL(url);
+	});
+</script>

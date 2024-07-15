@@ -42,18 +42,11 @@
 		var y = 10;
 		// var multiplier = parseInt(prompt("Qual o CPF do cliente:"), 10);
 
-		// Define a largura máxima da linha
+		var text = "This is a very long text that should wrap to the next line automatically " + name;
+		var maxWidth = 180; // adjust this value to your desired width
 
-		doc.text("Hello world!", 10, 10);
-		doc.text("Este é um exemplo de geração automática de PDF.", 10, 20);
-		doc.text("Você pode adicionar mais conteúdo aqui.", 10, 30);
-
-		doc.setFontSize(22);
-		doc.text(20, 40, "Exemplos de arquivos");
-		doc.setFontSize(16);
-		doc.setLineWidth(3);
-		doc.text("Esse arquivo pertence : " + name + " de nacionalidade " + nacionalidade, 20, 50);
-		// doc.text(20, 60, "o CPF desse cliente é: " + multiplier);
+		var splitText = doc.splitTextToSize(text, maxWidth);
+		doc.text(10, 10, splitText);
 		// Salvar o PDF com o nome especificado
 		doc.save('documento-exemplo.pdf');
 	});
